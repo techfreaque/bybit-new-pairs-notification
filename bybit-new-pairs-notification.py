@@ -54,12 +54,12 @@ while True:
                     is_new_on_Futures = " Futures"
             for old_pair in spot_symbols:
                 if pair == old_pair:
-                    is_new_on_Spot = " Spot"
+                    is_new_on_spot = " Spot"
             and_str = ""
-            if is_new_on_Spot == " Spot" and is_new_on_Futures == " Futures":
+            if is_new_on_spot == " Spot" and is_new_on_Futures == " Futures":
                 and_str = " and"
 
-            new_pair_str = pair + is_new_on_Futures + and_str + is_new_on_Spot
+            new_pair_str = pair + is_new_on_Futures + and_str + is_new_on_spot
             new_pair_file = open(new_pair_str, "w+")
             new_pair_file.close()
 
