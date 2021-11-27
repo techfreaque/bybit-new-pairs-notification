@@ -68,6 +68,8 @@ while True:
     supported_count_str = "Currently bybit has a total of " + str(symbols_count) + " pairs listed\n"
     current_pairs_file.write(supported_count_str)
 
+    live_symbols = sorted(live_symbols)
+
     for symbol in live_symbols:
         current_pairs_str = current_pairs_file.write(symbol + "\n")
     current_pairs_file.close()
@@ -75,5 +77,6 @@ while True:
         print("bybit added " + str(len(new_pairs)) + " pair(s) " + str(new_pairs))
         print("next check in 60 seconds")
     else:
-        print("started checking for new traded pairs every 60 seconds \n from now on you'll get notified when a new pair is available, even if this program is not running all the time")
+        print(
+            "started checking for new traded pairs every 60 seconds \n from now on you'll get notified when a new pair is available, even if this program is not running all the time")
     time.sleep(60)
