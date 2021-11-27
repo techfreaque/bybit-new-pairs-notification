@@ -1,6 +1,6 @@
 # bybit-new-pairs-notification
 
-#either use the exe on windows
+# either use the exe on windows
 
 # or run it with 
 python .\bybit-new-pairs-notification.py
