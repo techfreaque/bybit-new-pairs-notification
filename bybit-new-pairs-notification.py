@@ -1,5 +1,5 @@
+from datetime import datetime
 import time
-
 from pybit import HTTP
 
 
@@ -32,10 +32,14 @@ while True:
     live_symbols = spot_symbols + list(set(futures_symbols) - set(spot_symbols))
     symbols_count = len(live_symbols)
     current_pairs_file = None
+    all_added_pairs = None
     try:
         current_pairs_file = open("current_pairs_list.txt")
+        all_added_pairs = open("all_added_pairs.txt")
+
     except:
         current_pairs_file = open("current_pairs_list.txt", "w+")
+        all_added_pairs = open("all_added_pairs.txt", "w+")
 
     prev_pairs_list_raw = current_pairs_file.readlines()[1:]
     previous_pairs_list = []
@@ -45,6 +49,17 @@ while True:
     new_pairs = difference(previous_pairs_list, live_symbols)
 
     if previous_pairs_list:
+        previous_all_added_pairs_list_raw = all_added_pairs.readlines()
+        previous_all_added_pairs_list = []
+        if new_pairs:
+            for current_pair in previous_all_added_pairs_list_raw:
+                previous_all_added_pairs_list.append(current_pair.rstrip("\n"))
+            all_added_pairs.close()
+            all_added_pairs = open("all_added_pairs.txt", "w+")
+            time_now = datetime.now()
+            time_now_str = time_now.strftime("%Y-%m-%d %H:%M:%S")
+            all_added_pairs.write("\n" + time_now_str + " - bybit added " + str(len(new_pairs)) + " pairs" + "\n")
+
         for pair in new_pairs:
             is_new_on_Futures = ""
             is_new_on_spot = ""
@@ -62,6 +77,12 @@ while True:
             new_pair_str = pair + is_new_on_Futures + and_str + is_new_on_spot
             new_pair_file = open(new_pair_str, "w+")
             new_pair_file.close()
+            if new_pairs:
+                all_added_pairs.write(new_pair_str + "\n")
+
+        for pair in previous_all_added_pairs_list:
+            all_added_pairs.write(pair + "\n")
+        all_added_pairs.close()
 
     open("current_pairs_list.txt", "w").close()
     current_pairs_file = open("current_pairs_list.txt", "w+")
