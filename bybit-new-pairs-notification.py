@@ -75,8 +75,9 @@ while True:
                 and_str = " and"
 
             new_pair_str = pair + is_new_on_Futures + and_str + is_new_on_spot
-            new_pair_file = open(new_pair_str, "w+")
-            new_pair_file.close()
+            #
+            # new_pair_file = open(new_pair_str, "w+")
+            # new_pair_file.close()
             if new_pairs:
                 all_added_pairs.write(new_pair_str + "\n")
 
